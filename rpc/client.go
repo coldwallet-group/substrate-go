@@ -32,7 +32,7 @@ type Client struct {
 	genesisHash        string
 }
 type CringAccountInfo struct {
-	Nonce    state.stateU32 `json:"nonce"`
+	Nonce    state.U32 `json:"nonce"`
 	Refcount state.U32 `json:"ref_count"`
 	Providers state.U32 `json:"providers"`
 	Sufficients state.U32 `json:"sufficients"`
