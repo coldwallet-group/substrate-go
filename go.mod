@@ -1,4 +1,4 @@
-module github.com/JFJun/substrate-go
+module github.com/coldwallet-group/substrate-go
 
 go 1.13
 
