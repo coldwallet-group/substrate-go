@@ -131,3 +131,16 @@ type AccountInfo struct {
 		FreeFrozen U128 `json:"free_frozen"`
 	} `json:"data"`
 }
+type CringAccountInfo struct {
+	Nonce    U32 `json:"nonce"`
+	Refcount U32 `json:"ref_count"`
+	Providers U32 `json:"providers"`
+	Sufficients U32 `json:"sufficients"`
+	Data     struct {
+		Free       U128 `json:"free"`
+		Reserved   U128 `json:"reserved"`
+		MiscFrozen U128 `json:"misc_frozen"`
+		FreeFrozen U128 `json:"free_frozen"`
+	} `json:"data"`
+}
+

@@ -176,6 +176,20 @@ func (client *Client) GetAccountInfo(address string) ([]byte, error) {
 	data, _ := hex.DecodeString(respStr)
 	raw := state.NewStorageDataRaw(data)
 	var target state.AccountInfo
+	if strings.ToLower(client.CoinType) == "crab"{
+		tmpgarget := new(state.CringAccountInfo)
+		scale.NewDecoder(bytes.NewReader(raw)).Decode(tmpgarget)
+		if &target == nil {
+			return nil, fmt.Errorf("decode stroage data error,data=[%s]", data)
+		}
+		target.Nonce = tmpgarget.Nonce
+		target.Refcount = tmpgarget.Refcount
+		target.Data.Free = tmpgarget.Data.Free
+		target.Data.Reserved = tmpgarget.Data.Reserved
+		target.Data.MiscFrozen = tmpgarget.Data.MiscFrozen
+		target.Data.FreeFrozen = tmpgarget.Data.FreeFrozen
+		return json.Marshal(target)
+	}
 	scale.NewDecoder(bytes.NewReader(raw)).Decode(&target)
 	if &target == nil {
 		return nil, fmt.Errorf("decode stroage data error,data=[%s]", data)
