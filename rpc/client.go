@@ -31,7 +31,18 @@ type Client struct {
 	TransactionVersion int
 	genesisHash        string
 }
-
+type CringAccountInfo struct {
+	Nonce    state.stateU32 `json:"nonce"`
+	Refcount state.U32 `json:"ref_count"`
+	Providers state.U32 `json:"providers"`
+	Sufficients state.U32 `json:"sufficients"`
+	Data     struct {
+		Free       state.U128 `json:"free"`
+		Reserved   state.U128 `json:"reserved"`
+		MiscFrozen state.U128 `json:"misc_frozen"`
+		FreeFrozen state.U128 `json:"free_frozen"`
+	} `json:"data"`
+}
 type IClient interface {
 	SendRequest(method string, params []interface{}) ([]byte, error)
 }
@@ -177,7 +188,7 @@ func (client *Client) GetAccountInfo(address string) ([]byte, error) {
 	raw := state.NewStorageDataRaw(data)
 	var target state.AccountInfo
 	if strings.ToLower(client.CoinType) == "crab"{
-		tmpgarget := new(state.CringAccountInfo)
+		tmpgarget := new(CringAccountInfo)
 		scale.NewDecoder(bytes.NewReader(raw)).Decode(tmpgarget)
 		if &target == nil {
 			return nil, fmt.Errorf("decode stroage data error,data=[%s]", data)
